@@ -40,6 +40,7 @@ def appendHeadlines(filesAndUrls: list, con):
     headLinesStored = 0
     start = time()
     iterator = tqdm(range(len(filesAndUrls)))
+    iterator.set_description(f"Files Processed: {0}/{len(filesAndUrls)}\tHeadlines Stored: {0} ({0} headlines per second)")
     for i in iterator:
         file, url = filesAndUrls[i]
         dfs.append(getDf(file, url))
