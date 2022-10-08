@@ -26,10 +26,17 @@ import os
 import sqlite3
 from time import time
 from tqdm import tqdm
+import numpy as np
 def getDf(fileName, url):
     df = pd.read_csv(fileName)
     df.rename(columns={"DATE": "date", "TITLE": "title", "SUMMARY": "description"}, inplace=True)
     df["url"] = url
+    if df['title'].isnull().values.any():
+        nullTitles = df.loc[df['title'].isnull()]
+        nullTitles['title'] = nullTitles['description']
+        nullTitles['description'] = str(np.NAN)
+        df[df['title'].isnull()] = nullTitles
+        df = df[df['title'].notna()]
     return df
 def appendHeadlines(filesAndUrls: list, con):
     cutoff = 16384
