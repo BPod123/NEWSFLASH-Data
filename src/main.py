@@ -119,7 +119,7 @@ if __name__ == '__main__':
         (
         url TEXT NOT NULL,
         date TIMESTAMP NOT NULL,
-        title TEXT,
+        title TEXT NOT NULL,
         description TEXT,
         PRIMARY KEY (url, date, title),
         FOREIGN KEY (url) REFERENCES feed(url)
